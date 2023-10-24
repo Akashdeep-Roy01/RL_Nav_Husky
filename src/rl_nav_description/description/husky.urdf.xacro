@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="husky">
+  <!-- robot name parameter -->
+  <xacro:arg name="prefix" default="" />
+  <xacro:include filename="$(find rl_nav_description)/description/husky_macro.urdf.xacro" />
+  <xacro:include filename="$(find rl_nav_description)/description/gazebo_control.xacro" />
+  <xacro:include filename="$(find rl_nav_description)/description/ouster_lidar.urdf.xacro" />
+  <xacro:husky prefix="$(arg prefix)" />
+
+</robot>
