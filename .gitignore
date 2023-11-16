@@ -1,3 +1,8 @@
 build/
 install/
 log/
+local/
+checkpoints/
+runs/
+__pycache__/
+results/

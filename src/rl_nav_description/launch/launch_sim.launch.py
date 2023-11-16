@@ -20,7 +20,7 @@ def generate_launch_description():
     package_name='rl_nav_description' #<--- CHANGE ME
     
     #world_path=os.path.join(get_package_share_directory(package_name),'worlds/my_world.sdf')
-    world_path="/docker_ws/src/rl_nav_description/worlds/my_world.sdf"
+    world_path="/docker_ws/src/rl_nav_description/worlds/maze6.sdf"
 
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -32,18 +32,21 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
+                    launch_arguments={'use_sim_time': 'true'}.items()
              )
 
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
-    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
+    spawn_robot = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
                                    '-entity', 'my_bot'],
                         output='screen')
+    
 
     # Launch them all!
     return LaunchDescription([
         DeclareLaunchArgument(name='world', default_value=world_path,description='world_path'),
+        DeclareLaunchArgument(name='gui', default_value="False",description='gz_server'),
         rsp,
         gazebo,
-        spawn_entity,
+        spawn_robot,
     ])

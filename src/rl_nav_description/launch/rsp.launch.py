@@ -16,7 +16,7 @@ def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory('rl_nav_description'))
     xacro_file = os.path.join(pkg_path,'description','husky.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
-    default_rviz_config_path = os.path.join(pkg_path, 'config','config.rviz')
+    default_rviz_config_path = os.path.join(pkg_path, 'config','config2.rviz')
     
     # Create a robot_state_publisher node
     params = {'robot_description': robot_description_config.toxml(), 'use_sim_time': use_sim_time}

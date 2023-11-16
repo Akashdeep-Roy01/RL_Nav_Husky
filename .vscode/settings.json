@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./src/SAC2/src"
+    ]
+}
