@@ -94,6 +94,8 @@ class TD3(object):
 		self.policy_freq = policy_freq
 
 		self.total_it = 0
+		self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # cuda or cpu
+
 
 
 	def select_action(self, state):
@@ -108,6 +110,12 @@ class TD3(object):
 
 		# Sample replay buffer 
 		state, action, next_state, reward, done = replay_buffer.sample(batch_size)
+		state = torch.Tensor(state).to(self.device)
+		next_state = torch.Tensor(next_state).to(self.device)
+		action = torch.Tensor(action).to(self.device)
+		reward = torch.Tensor(reward).to(self.device)
+		done = torch.Tensor(done).to(self.device)
+
 
 		with torch.no_grad():
 			# Select action according to policy and add clipped noise
