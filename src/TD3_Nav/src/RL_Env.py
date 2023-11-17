@@ -15,7 +15,7 @@ from common.utils import *
 from sensor_msgs_py import point_cloud2 as pc2
 from sensor_msgs.msg import PointCloud2
 from torch.utils.tensorboard import SummaryWriter
-from replay_memory import ReplayMemory
+from replay_memory import ReplayBuffer
 from gazebo_msgs.srv import SetEntityState
 from geometry_msgs.msg import Twist
 from visualization_msgs.msg import Marker
@@ -346,8 +346,8 @@ if __name__ == "__main__":
     rclpy.init()    
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--policy", default="TD3")                  #    Policy name (TD3, DDPG or OurDDPG)
-    parser.add_argument("--seed", default=0, type=int)               # Sets Gym, PyTorch and Numpy seeds
+    parser.add_argument("--policy", default="TD3")                      # Policy name (TD3, DDPG or OurDDPG)
+    parser.add_argument("--seed", default=0, type=int)                  # Sets Gym, PyTorch and Numpy seeds
     parser.add_argument("--start_timesteps", default=25e3, type=int)    # Time steps initial random policy is used
     parser.add_argument("--eval_freq", default=5e3, type=int)           # How often (time steps) we evaluate
     parser.add_argument("--max_timesteps", default=1e6, type=int)       # Max time steps to run environment
@@ -358,7 +358,7 @@ if __name__ == "__main__":
     parser.add_argument("--policy_noise", default=0.2)                  # Noise added to target policy during critic update
     parser.add_argument("--noise_clip", default=0.5)                    # Range to clip target policy noise
     parser.add_argument("--policy_freq", default=2, type=int)           # Frequency of delayed policy updates
-    parser.add_argument("--buffer_size", default=2e5, type=int)         # Buffer Capacity
+    parser.add_argument("--buffer_size", default=1e6, type=int)         # Buffer Capacity
     parser.add_argument("--max_episode_steps", default=500, type=int)   # Episode Length		
     parser.add_argument("--save_model", action="store_true")            # Save model and optimizer parameters
     parser.add_argument("--load_model", default="")                     # Model load file name, "" doesn't load, "default" uses file_name
@@ -401,7 +401,7 @@ if __name__ == "__main__":
         policy_file = file_name if args.load_model == "default" else args.load_model
         policy.load(f"./models/{policy_file}")
 
-    replay_buffer = ReplayMemory(args.buffer_size, args.seed)
+    replay_buffer = ReplayBuffer(state_dim,action_dim)
 
     # Evaluate untrained policy
     evaluations = [eval_policy(policy, env, args.max_episode_steps)]
@@ -432,7 +432,7 @@ if __name__ == "__main__":
         done_bool = float(done) if episode_timesteps < args.max_episode_steps else 0
 
         # Store data in replay buffer
-        replay_buffer.push(state, action, next_state, reward, done_bool)
+        replay_buffer.add(state, action, next_state, reward, done_bool)
 
         state = next_state
         episode_reward += reward
