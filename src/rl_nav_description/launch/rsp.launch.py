@@ -58,5 +58,5 @@ def generate_launch_description():
         #joint_state_publisher_gui_node,
         #robot_localization_node,
         node_robot_state_publisher,
-        rviz_node
+        # rviz_node
     ])

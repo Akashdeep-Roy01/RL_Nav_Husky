@@ -88,7 +88,9 @@ RUN pip3 install \
     torch torchvision torchaudio \ 
     numpy==1.26.1 \
     pandas==2.1.1 \
-    matplotlib==3.8.0
+    optuna==3.4.0 \
+    stable-baselines3[extra]==2.2.1 \
+    tensorboard==2.15.1
 
 # Set up ~/.bashrc file
 RUN apt-get update && apt-get install -y git-core bash-completion \

@@ -20,7 +20,7 @@ def generate_launch_description():
     package_name='rl_nav_description' #<--- CHANGE ME
     
     #world_path=os.path.join(get_package_share_directory(package_name),'worlds/my_world.sdf')
-    world_path="/docker_ws/src/rl_nav_description/worlds/maze6.sdf"
+    world_path="/docker_ws/src/rl_nav_description/worlds/maze7.sdf"
 
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
