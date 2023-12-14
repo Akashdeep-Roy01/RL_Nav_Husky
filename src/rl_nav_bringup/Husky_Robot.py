@@ -22,7 +22,7 @@ class Husky_Robot(Node):
         self.goal_y = 0.0    
         self.upper = 1.5 # to enable easy goals in the beginning
         self.lower = -1.5     
-        self.goal_reach_distance = 0.0278 # in meters        
+        self.goal_reach_distance = 0.0278 # normalised (divide by max.possible 18) in meters        
         self.num_scan = 40 # number of bins for laser scan data
         self.area_limits = 8.0 # defines length of env in x & y
         
@@ -85,14 +85,16 @@ class Husky_Robot(Node):
         return True
      
     def shuffle_goal(self):
-        if self.upper < self.area_limits:
-            self.upper += 0.004
-        if self.lower > -self.area_limits:
-            self.lower -= 0.004
+        # if self.upper < self.area_limits:
+        #     self.upper += 0.004
+        # if self.lower > -self.area_limits:
+        #     self.lower -= 0.004
         goal_ok = False
         while not goal_ok:
-            x_add = np.random.uniform(self.upper,self.lower)
-            y_add = np.random.uniform(self.upper,self.lower)    
+            # x_add = np.random.uniform(self.upper,self.lower)
+            # y_add = np.random.uniform(self.upper,self.lower)    
+            x_add = np.random.uniform(-self.area_limits,self.area_limits)
+            y_add = np.random.uniform(-self.area_limits,self.area_limits)
             self.goal_x = self.robot_x + x_add
             self.goal_y = self.robot_y + y_add
             goal_ok = self.check_pos(self.goal_x,self.goal_y)

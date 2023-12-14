@@ -29,7 +29,7 @@ class Husky_SB3Env(Husky_Robot,gym.Env):
         self.reset_done = False
         self.reset_simulation()
         while self.reset == False:
-            rclpy.spin_once(node=self)
+            rclpy.spin_once(node=self,timeout_sec=1.0)
 
         self.shuffle_robot()
         self.shuffle_goal()
@@ -120,10 +120,10 @@ class Husky_SB3Env(Husky_Robot,gym.Env):
         else: # Range -1000.0 to 500.0
             if goal_dist < self.prev_goal_dist:
                 reward = 1.0
-            elif goal_dist > self.prev_goal_dist:
+            elif goal_dist >= self.prev_goal_dist:
                 reward = -2.0
-            else:
-                reward = 0.0
+            # else:
+            #     reward = 0.0
         return float(reward)
     
     def render(self):
