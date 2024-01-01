@@ -1,6 +1,6 @@
 # RL_Nav_Husky
-![ROS2](https://camo.githubusercontent.com/b874e7cbc7323284002070083cf5fc1cfff41a3a5573f598638564fa4017fd65/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f524f5320322d68756d626c652d626c756576696f6c6574)
-![Docker](https://camo.githubusercontent.com/b609225bdb4ad668a23ec18b022f166bd86e184b28ddcf34b604f4a68837907f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f636b65722d3234393645443f7374796c653d666c61742d737175617265266c6f676f3d646f636b6572266c6f676f436f6c6f723d7768697465)
+![ROS2](https://img.shields.io/badge/ROS2-Humble-%23F46800.svg?style=for-the-badge&logo=ROS2-Humble&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 Repository to develop and test different deep Reinforcement Learning based algorithms for Autonomous Robot Navigation.
 
